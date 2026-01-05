@@ -1,0 +1,39 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_28-ed2bbd91589203275c7763c0d9ed390d46543f7b",
+  "solcVersion": "0.8.28",
+  "solcLongVersion": "0.8.28+commit.7893614a",
+  "userSourceNameMap": {
+    "contracts/MyToken.sol": "project/contracts/MyToken.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "cancun",
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "evm.methodIdentifiers",
+            "metadata"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/MyToken.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.28;\r\ncontract MyToken {\r\n    string public name = \"Gold\";\r\n    string public symbol = \"GLD\";\r\n    uint public totalSupply = 1000 * 10**18;\r\n    mapping(address => uint) public balances;\r\n    constructor() {\r\n        balances[msg.sender] = totalSupply;\r\n    }\r\n    function balanceOf(address _owner) public view returns (uint){\r\n        return balances[_owner];\r\n    }\r\n    function transfer(address _to, uint _value) public returns (bool){\r\n        require(balances[msg.sender] >= _value, \"Your money is not enough\");\r\n        balances[msg.sender] -= _value;\r\n        balances[_to] += _value;\r\n        return true;\r\n    }\r\n\r\n}\r\n"
+      }
+    }
+  }
+}

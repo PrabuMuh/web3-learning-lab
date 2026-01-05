@@ -1,0 +1,11 @@
+{
+  "name": "week_01_blockchain_basics",
+  "version": "1.0.0",
+  "type": "module",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ignition-ethers": "^3.0.6",
+    "@types/node": "^22.19.3",
+    "hardhat": "^3.1.1",
+    "typescript": "~5.8.0"
+  }
+}
