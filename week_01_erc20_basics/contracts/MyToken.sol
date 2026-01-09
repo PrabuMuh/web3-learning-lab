@@ -27,28 +27,27 @@ contract MyToken {
         _transfer(msg.sender, to, amount);
         return true;
     }
+    function approve(address spender, uint256 amount) external returns (bool) {
+        allowances[msg.sender][spender] = amount;
+        emit Approval(msg.sender, spender, amount);
+        return true;
+    }
 
-    // function approve(address spender, uint256 amount) external returns (bool) {
-    //     allowances[msg.sender][spender] = amount;
-    //     emit Approval(msg.sender, spender, amount);
-    //     return true;
-    // }
+    function allowance(address owner, address spender) external view returns (uint256){
+        return allowances[owner][spender];
+    }
 
-    // function allowance(address owner, address spender) external view returns (uint256) {
-    //     return allowances[owner][spender];
-    // }
+    function transferFrom(address from, address to, uint256 amount) external returns (bool){
+        uint256 currentAllowance = allowances[from][msg.sender];
+        require(currentAllowance >= amount, "ERC20 : transfer amount exceeds allowance");
+        allowances[from][msg.sender] = currentAllowance - amount;
+        _transfer(from, to, amount);
+        return true;
 
-    // function transferFrom(address from, address to, uint256 amount) external returns (bool) {
-    //     uint256 currentAllowance = allowances[from][msg.sender];
-    //     require(currentAllowance >= amount, "ERC20: insufficient allowance");
-
-    //     allowances[from][msg.sender] = currentAllowance - amount;
-    //     _transfer(from, to, amount);
-
-    //     return true;
-    // }
+    }
 
     function _transfer(address from, address to, uint256 amount) internal {
+        require(from != address(0), "ERC20: transfer from zero address");
         require(to != address(0), "ERC20: transfer to zero address");
         require(balances[from] >= amount, "ERC20: insufficient balance");
 
